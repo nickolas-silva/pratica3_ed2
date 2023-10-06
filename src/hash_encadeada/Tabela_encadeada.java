@@ -40,19 +40,29 @@ public class Tabela_encadeada {
 
 	}
 	
-	public No_enc buscar(int k) {
-		
-		// Integer c = this.hash(k);
-		// No_enc no = this.tabela[c];
-		
-		// while(no != null) {
-			
-		// 	if(no.chave == k)
-		// 		return no;
-			
-		// 	no = no.prox;
-		// }
-		// return null;
+	public No_enc buscarMF(int k){
+		int temp = hash(k);
+		return this.buscarMF(tabela[temp], k);
+	}
+
+	public No_enc buscarMF(No_enc l, int k) {
+
+		No_enc atual, anterior = null;
+		for(atual = l; atual != null; atual = atual.prox){
+			if(atual.chave == k){
+				if(atual != tabela[hash(k)]){
+					anterior.prox = atual.prox;
+					atual.prox = tabela[hash(k)];
+					tabela[hash(k)] = atual;
+
+					return atual;
+				}
+				return atual;
+			}
+			anterior = atual;
+		}
+		return null;
+	
 	}
 	
 	public void imprimir() {
@@ -76,56 +86,74 @@ public class Tabela_encadeada {
 
   public int contVeiculos(){
     int qnt = 0;
-		No_enc aux[];
-		No_enc ex;
-		aux = tabela;
-    for(int i = 0; i < aux.length; i++){
-      qnt++;
-			while(aux[i].prox != null){
-				ex = aux[i].prox;
+		for(int i = 0; i< tabela.length; i++){
+			if(tabela[i] != null){
 				qnt++;
-				System.out.println(ex);
-			}
-     
+				No_enc temp = tabela[i].prox;
+				while(temp != null){
+					qnt++;
+					temp = temp.prox;
+				}
 
-    }
-    return qnt;
+			}
+		}
+		return qnt;
 
   }
 
   public void remover(int k) {
-    int h = this.hash(k);
 
-		if(tabela[h] == null){
-			System.out.println("Veiculo nao encontrado!");
-			return;
+		int h = hash(k);
+
+		No_enc atual, anterior = null;
+		for(atual = tabela[h]; atual != null; atual = atual.prox){
+			if(atual.chave == k){
+				if(atual != tabela[h]){
+					anterior.prox = atual.prox;
+					
+					atual = null;
+					break;
+					
+				}
+				else{
+					tabela[hash(k)] = atual.prox;
+					
+					atual = null;
+
+				}
+			}
+			anterior = atual;
 		}
 
-    while(tabela[h] != null){
-      if(tabela[h].valor.renavam == k){
-        if(tabela[h].prox == null){
-          tabela[h] = null;
-          break;
-        }
-        else{
-          while(tabela[h].prox != null){
-            //No_enc aux = tabela[h];
-            tabela[h] = tabela[h].prox;
-            tabela[h].prox = null;
-            //tabela[h] = tabela[h].prox;
-            
-          }
-          break;
-        }
-        
-        
-      }
-      else{
-        tabela[h] = tabela[h].prox;
-      }
 
-    }
-    System.out.println("Veiculo removido!");
+		
+  //   int h = this.hash(k);
+	// 	No_enc cabeca = tabela[h];
+
+	// 	if(tabela[h] == null){
+	// 		System.out.println("Veiculo nao encontrado!");
+	// 		return;
+	// 	}
+
+  //   while(tabela[h] != null){
+  //     if(tabela[h].valor.renavam == k){
+  //       if(tabela[h].prox == null){
+  //         tabela[h] = null;
+  //         break;
+  //       }
+  //       else{
+          
+  //       }
+        
+        
+  //     }
+  //     else{
+  //       tabela[h] = tabela[h].prox;
+  //     }
+
+  //   }
+  //   System.out.println("Veiculo removido!");
+		
   }
 
 
