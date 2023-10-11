@@ -6,9 +6,9 @@ public class Veiculo {
   public String nome_condutor;
   public String cpf_condutor;
   public String modelo;
-  public Integer ano_fabri;
+  public String ano_fabri;
 
-  public Veiculo(String placa, String modelo, Integer ano_fabri, String cpf_condutor, String nome_condutor, Integer renavam) {
+  public Veiculo(String placa, String modelo, String ano_fabri, String cpf_condutor, String nome_condutor, Integer renavam) {
     this.placa = placa;
     this.renavam = renavam;
     this.nome_condutor = nome_condutor;
@@ -19,17 +19,12 @@ public class Veiculo {
 
   @Override
   public String toString() {
-    return "Veiculo [placa=" + placa + ", renavam=" + renavam + ", nome_condutor=" + nome_condutor + ", cpf_condutor="
-        + cpf_condutor + ", modelo=" + modelo + ", data_fabri=" + ano_fabri + "]";
+    //  return "Veiculo [placa=" + placa + ", renavam=" + renavam + ", nome_condutor=" + nome_condutor + ", cpf_condutor="
+    //      + cpf_condutor + ", modelo=" + modelo + ", data_fabri=" + ano_fabri + "]";
+    return placa + "/" + modelo + "/" + ano_fabri + "/" + cpf_condutor + "/" + nome_condutor + "/" + renavam;
   }
 
   public Veiculo(){
-    this.placa = "";
-    this.renavam = 0;
-    this.nome_condutor = "";
-    this.cpf_condutor = "";
-    this.modelo = "";
-    this.ano_fabri = 0;
     
   }
 }

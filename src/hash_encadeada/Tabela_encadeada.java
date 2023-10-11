@@ -125,35 +125,6 @@ public class Tabela_encadeada {
 			anterior = atual;
 		}
 
-
-		
-  //   int h = this.hash(k);
-	// 	No_enc cabeca = tabela[h];
-
-	// 	if(tabela[h] == null){
-	// 		System.out.println("Veiculo nao encontrado!");
-	// 		return;
-	// 	}
-
-  //   while(tabela[h] != null){
-  //     if(tabela[h].valor.renavam == k){
-  //       if(tabela[h].prox == null){
-  //         tabela[h] = null;
-  //         break;
-  //       }
-  //       else{
-          
-  //       }
-        
-        
-  //     }
-  //     else{
-  //       tabela[h] = tabela[h].prox;
-  //     }
-
-  //   }
-  //   System.out.println("Veiculo removido!");
-		
   }
 
 

@@ -5,7 +5,6 @@ import hash_encadeada.Tabela_encadeada;
 
 public class Servidor {
   
-  //public Tabela dadosT = new Tabela(57);
   public Tabela_encadeada dadosT = new Tabela_encadeada(7);
   
   public Servidor(){
@@ -14,7 +13,21 @@ public class Servidor {
     
   }
 
+  public void addVeiculoComprimido(String v){
+    
+    System.out.println("String comprimida: " + v);
+    String descomp = Protocolo.compressor.decompress(v);
+    System.out.println("String descomprimida: " + descomp);
+
+
+    //FUNCIONA
+    String[] datas = descomp.split("/");
+    //Veiculo newV = new Veiculo(datas[0], datas[1], Integer.parseInt(datas[2]), datas[3], datas[4], Integer.parseInt(datas[5]));
+    System.out.println("AQUIIIII" + datas[0] + datas[1] + datas[2] + datas[3] + datas[4] + datas[5]);
+    //addVeiculo(newV);
+  }
   public void addVeiculo(Veiculo v){
+
     dadosT.inserir(v);
   }
 

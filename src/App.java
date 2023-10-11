@@ -9,7 +9,6 @@ public class App {
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args) throws InterruptedException, IOException{
         //INSERIR VEÍCULOS
-
         Protocolo p = new Protocolo();
         p.inserirVeiculosPadrao();
         
@@ -63,12 +62,14 @@ public class App {
                     String modelo = input.nextLine();
                     
                     System.out.println("Entre com a data de fabricação do veículo: ");
-                    Integer ano_fabri = input.nextInt();
+                    String ano_fabri = input.nextLine();
                     
                     System.out.println("Entre com o renavam do veículo: ");
                     Integer renavam = input.nextInt();
 
                     Veiculo veiculo = new Veiculo(placa, modelo, ano_fabri, cpf_condutor, nome_condutor, renavam);
+                    //String comprimido = Protocolo.compressor.compress(veiculo.toString());
+
                     p.inserirVeiculo(veiculo);
                     break;
                 case 2:
@@ -89,7 +90,7 @@ public class App {
                     String modelo_editar = input.nextLine();
                     
                     System.out.println("Entre com a data de fabricação do veículo: ");
-                    Integer ano_fabri_editar = input.nextInt();
+                    String ano_fabri_editar = input.nextLine();
                     
                     System.out.println("Entre com o renavam do veiculo que deseja editar: ");
                     Integer renavam_editar = input.nextInt();
