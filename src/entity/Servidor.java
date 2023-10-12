@@ -5,7 +5,7 @@ import hash_encadeada.Tabela_encadeada;
 
 public class Servidor {
   
-  public Tabela_encadeada dadosT = new Tabela_encadeada(7);
+  public Tabela_encadeada dadosT = new Tabela_encadeada(29);
   
   public Servidor(){
     System.out.println("Servidor Inicializado!");
@@ -16,15 +16,15 @@ public class Servidor {
   public void addVeiculoComprimido(String v){
     
     System.out.println("String comprimida: " + v);
-    String descomp = Protocolo.compressor.decompress(v);
+    String descomp = Protocolo.huffman.decompress(v);
     System.out.println("String descomprimida: " + descomp);
 
 
     //FUNCIONA
-    String[] datas = descomp.split("/");
-    //Veiculo newV = new Veiculo(datas[0], datas[1], Integer.parseInt(datas[2]), datas[3], datas[4], Integer.parseInt(datas[5]));
-    System.out.println("AQUIIIII" + datas[0] + datas[1] + datas[2] + datas[3] + datas[4] + datas[5]);
-    //addVeiculo(newV);
+    String[] dadosV = descomp.split("/");
+    Veiculo newV = new Veiculo(dadosV[0], dadosV[1], dadosV[2], dadosV[3], dadosV[4], Integer.parseInt(dadosV[5]));
+    
+    addVeiculo(newV);
   }
   public void addVeiculo(Veiculo v){
 
@@ -39,10 +39,15 @@ public class Servidor {
     dadosT.remover(renavam);
   }
   
-  public String editar(Integer renavam, Veiculo v){
+  public String editar(Integer renavam, String v){
 
+    //DESCOMPRIMINDO
+    String descomp = Protocolo.huffman.decompress(v);
+    String[] dadosEditado = descomp.split("/");
+
+    Veiculo vEditado = new Veiculo(dadosEditado[0], dadosEditado[1], dadosEditado[2], dadosEditado[3], dadosEditado[4], Integer.parseInt(dadosEditado[5]));
     dadosT.remover(renavam);
-    dadosT.inserir(v);
+    dadosT.inserir(vEditado);
 
     return "Veiculo atualizado!";
 

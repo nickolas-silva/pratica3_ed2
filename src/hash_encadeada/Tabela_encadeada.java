@@ -105,26 +105,22 @@ public class Tabela_encadeada {
 
 		int h = hash(k);
 
-		No_enc atual, anterior = null;
-		for(atual = tabela[h]; atual != null; atual = atual.prox){
-			if(atual.chave == k){
-				if(atual != tabela[h]){
-					anterior.prox = atual.prox;
-					
-					atual = null;
-					break;
-					
-				}
-				else{
-					tabela[hash(k)] = atual.prox;
-					
-					atual = null;
+		No_enc atual = tabela[h];
+		No_enc anterior = null;
 
+		while(atual != null){
+			if(atual.chave == k){
+				if(anterior == null){
+					tabela[h] = atual.prox;
+				} else{
+					anterior.prox = atual.prox;
 				}
+
+
 			}
 			anterior = atual;
+			atual = atual.prox;
 		}
-
   }
 
 

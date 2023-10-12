@@ -68,9 +68,10 @@ public class App {
                     Integer renavam = input.nextInt();
 
                     Veiculo veiculo = new Veiculo(placa, modelo, ano_fabri, cpf_condutor, nome_condutor, renavam);
-                    //String comprimido = Protocolo.compressor.compress(veiculo.toString());
+                    String comprimido = Protocolo.huffman.comprimir(veiculo.toString());
+                    p.inserirVeiculo(comprimido);
 
-                    p.inserirVeiculo(veiculo);
+                    //p.inserirVeiculo(veiculo);
                     break;
                 case 2:
                     p.listar();
@@ -96,7 +97,10 @@ public class App {
                     Integer renavam_editar = input.nextInt();
 
                     Veiculo veiculo_editar = new Veiculo(placa_editar, modelo_editar, ano_fabri_editar, cpf_condutor_editar, nome_condutor_editar, renavam_editar);
-                    p.editarVeiculo(veiculo_editar.renavam, veiculo_editar);
+
+                    //Comprimindo veiculo editado
+                    String compri = Protocolo.huffman.comprimir(veiculo_editar.toString());
+                    p.editarVeiculo(veiculo_editar.renavam, compri);
                     break;
                 case 4:
                     System.out.println("Entre com o renavam do veículo: ");

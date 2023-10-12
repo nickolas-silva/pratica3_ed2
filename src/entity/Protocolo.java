@@ -4,7 +4,7 @@ import huffman.ArvoreHuf;
 
 public class Protocolo {
   public static Servidor s = new Servidor();
-  public static ArvoreHuf compressor = new ArvoreHuf();
+  public static ArvoreHuf huffman = new ArvoreHuf();
   
   public Protocolo(){
     
@@ -12,8 +12,9 @@ public class Protocolo {
   }
 
   public void inserirVeiculosPadrao(){
-    s.addVeiculoComprimido(Protocolo.compressor.compress("abc1234/Fiat Uno/2023/12345678901/Vinicius Dantas/987652101"));
-s.addVeiculo(new Veiculo("ABC-1234", "SwiftSport", "2020", "12345678901", "Joao Silva", 987652101));
+    //TESTE
+    s.addVeiculoComprimido(Protocolo.huffman.comprimir("xxx000/Toyota Creta/2021/12345678901/Nickolas Emanuel/287662187"));
+
 s.addVeiculo(new Veiculo("XYZ-5678", "Mustang GT", "2022", "23456789012", "Maria Santos", 876321012));
 s.addVeiculo(new Veiculo("DEF-9012", "Civic Touring", "2019", "34567890123", "Pedro Oliveira", 765432923));
 s.addVeiculo(new Veiculo("GHI-3456", "Corolla XLE", "2021", "45678901234", "Ana Rodrigues", 654309834));
@@ -65,19 +66,20 @@ s.addVeiculo(new Veiculo("LMN-8901", "Elantra Limited", "2019", "23456789012", "
 s.addVeiculo(new Veiculo("OPQ-1234", "F-150", "2022", "34567890123", "Pedro Oliveira", 554433224));
   }
 
-  public void inserirVeiculo(Veiculo v){
-    System.out.println("Inserindo veículo...");
-    String comprimido = compressor.compress(v.toString());
-    s.addVeiculoComprimido(comprimido);
+  public void inserirVeiculo(String v){
+    // System.out.println("Inserindo veículo...");
+    // String comprimido = huffman.comprimir(v.toString());
+    s.addVeiculoComprimido(v);
   }
 
   public void deletarVeiculo(Integer k){
     System.out.println("Excluindo Veículo...");
     s.removerVeiculo(k);
+    
     //System.out.println("VEICULO EXCLUIDO");
   }
 
-  public void editarVeiculo(Integer k, Veiculo v){
+  public void editarVeiculo(Integer k, String v){
     System.out.println("Editando Veículo...");
     System.out.println(s.editar(k, v));
     System.out.println("VEICULO EDITADO");

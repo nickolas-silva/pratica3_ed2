@@ -63,7 +63,7 @@ public class ArvoreHuf {
     imprimir(no.dir, s.concat("1"));
   }
 
-  public String compress(String input) {
+  public String comprimir(String input) {
         char[] charArray = getCharacters(input);
         Arrays.sort(charArray);
         int[] charFrequencies = getFrequencies(input);
@@ -110,7 +110,7 @@ public class ArvoreHuf {
         return decompressed;
     }
 
-    // Método auxiliar para preencher o array de códigos de Huffman
+    
     private void buildCodeArray(No_Huf node, String currentCode) {
         if (node == null) {
             return;
@@ -124,10 +124,42 @@ public class ArvoreHuf {
         buildCodeArray(node.dir, currentCode + "1");
     }
 
-    // Métodos que separam os caracteres e calculam suas frequencias
+    // Calcular frequência
+    public int[] getFrequencies(String input){
+        int[] charFrequencies = new int[128]; 
 
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+            if (currentChar >= 0 && currentChar <= 127) {
+                if (Character.isLetterOrDigit(currentChar) || Character.isWhitespace(currentChar)) {
+                    charFrequencies[currentChar]++;
+                }
+                else if(currentChar == '/' || currentChar == '.' || currentChar == '-' || currentChar == '@'){
+                    charFrequencies[currentChar]++;
+                }
+            }
+        }
+
+        int coutZero = 0;
+        for (int value : charFrequencies) {
+            if (value != 0) {
+                coutZero++;
+            }
+        }
+
+        int[] newArray = new int[coutZero];
+        int index = 0;
+        for (int value : charFrequencies) {
+            if (value != 0) {
+                newArray[index++] = value;
+            }
+        }
+        return newArray;
+    }
+
+    // Separa Caracteres
     public char[] getCharacters(String input){
-        boolean[] charExists = new boolean[128]; // Um array para os caracteres ASCII
+        boolean[] charExists = new boolean[128]; 
 
         StringBuilder uniqueCharsBuilder = new StringBuilder();
 
@@ -144,45 +176,5 @@ public class ArvoreHuf {
 
         return uniqueChars;
     }
-
-    public int[] getFrequencies(String input){
-        int[] charFrequencies = new int[128]; // Um array para todos os caracteres ASCII (0-127)
-
-        for (int i = 0; i < input.length(); i++) {
-            char currentChar = input.charAt(i);
-            if (currentChar >= 0 && currentChar <= 127) {
-                if (Character.isLetterOrDigit(currentChar) || Character.isWhitespace(currentChar)) {
-                    charFrequencies[currentChar]++;
-                }
-                else if(currentChar == '/' || currentChar == '.' || currentChar == '-' || currentChar == '@'){
-                    charFrequencies[currentChar]++;
-                }
-            }
-        }
-
-        charFrequencies = removeZeros(charFrequencies);
-        return charFrequencies;
-    }
-
-    public int[] removeZeros(int[] array) {
-        int nonZeroCount = 0;
-        for (int value : array) {
-            if (value != 0) {
-                nonZeroCount++;
-            }
-        }
-
-        int[] nonZeroArray = new int[nonZeroCount];
-        int index = 0;
-        for (int value : array) {
-            if (value != 0) {
-                nonZeroArray[index++] = value;
-            }
-        }
-
-        return nonZeroArray;
-    }
-
-
 
 }
