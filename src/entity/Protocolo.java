@@ -24,21 +24,21 @@ s.addVeiculo(new Veiculo("PQR-6789", "A4 Quattro", "2022", "78901234567", "Lucas
 s.addVeiculo(new Veiculo("STU-0123", "Camry SE", "2018", "89012345678", "Carolina Lima", 298765478));
 s.addVeiculo(new Veiculo("VWX-4567", "Model 3", "2021", "90123456789", "Gabriel Martins", 109876543));
 s.addVeiculo(new Veiculo("YZA-8901", "Prius Hybrid", "2019", "01234567890", "Isabela Sousa", 298765432));
-s.addVeiculo(new Veiculo("BCD-2345", "Focus Titanium", "2020", "10987654321", "Matheus Santos", 887766554));
+s.addVeiculo(new Veiculo("BCD-2345", "Focus Titanium", "2020", "10987654321", "Matheus Santos", 857768554));
 s.addVeiculo(new Veiculo("EFG-5678", "Grand Cherokee", "2022", "21098765432", "Larissa Oliveira", 776655443));
 s.addVeiculo(new Veiculo("HIJ-9012", "Accord EX", "2018", "32109876543", "Ricardo Rodrigues", 665544332));
-s.addVeiculo(new Veiculo("KLM-3456", "A3 Sportback", "2021", "43210987654", "Amanda Almeida", 554433221));
-s.addVeiculo(new Veiculo("NOP-7890", "X5 M", "2023", "54321098765", "Andre Carvalho", 443322110));
+s.addVeiculo(new Veiculo("KLM-3456", "A3 Sportback", "2021", "43210987654", "Amanda Almeida", 554833241));
+s.addVeiculo(new Veiculo("NOP-7890", "X5 M", "2023", "54321098765", "Andre Carvalho", 47622111));
 s.addVeiculo(new Veiculo("QRS-2345", "CR-V LX", "2019", "65432109876", "Sophia Ferreira", 332211009));
 s.addVeiculo(new Veiculo("TUV-6789", "C-Class", "2020", "76543210987", "Enzo Lima", 221100987));
 s.addVeiculo(new Veiculo("WXY-0123", "911 Carrera", "2022", "87654321098", "Valentina Martins", 110099876));
 s.addVeiculo(new Veiculo("ZAB-4567", "Fusion SE", "2017", "98765432109", "Mateus Sousa", 998877665));
 s.addVeiculo(new Veiculo("CDE-8901", "Outlander PHEV", "2021", "10987654321", "Mariana Santos", 887766554));
-s.addVeiculo(new Veiculo("FGH-2345", "Veloster N", "2020", "21098765432", "Guilherme Oliveira", 776655443));
-s.addVeiculo(new Veiculo("IJK-5678", "X1 sDrive", "2023", "32109876543", "Laura Rodrigues", 665544332));
+s.addVeiculo(new Veiculo("FGH-2345", "Veloster N", "2020", "21098765432", "Guilherme Oliveira", 776155943));
+s.addVeiculo(new Veiculo("IJK-5678", "X1 sDrive", "2023", "32109876543", "Laura Rodrigues", 662544732));
 s.addVeiculo(new Veiculo("LMN-9012", "Impreza WRX", "2019", "43210987654", "Thiago Almeida", 554433221));
 s.addVeiculo(new Veiculo("OPQ-3456", "GLE 450", "2022", "54321098765", "Fernanda Carvalho", 443322110));
-s.addVeiculo(new Veiculo("RST-7890", "3 Series", "2018", "65432109876", "Vinicius Ferreira", 332211009));
+s.addVeiculo(new Veiculo("RST-7890", "3 Series", "2018", "65432109876", "Vinicius Ferreira", 327211909));
 s.addVeiculo(new Veiculo("TUV-2345", "A6 Premium", "2021", "76543210987", "Isadora Lima", 221100988));
 s.addVeiculo(new Veiculo("WXY-6789", "Escalade ESV", "2020", "87654321098", "Gustavo Martins", 110099877));
 s.addVeiculo(new Veiculo("ZAB-0123", "Tiguan R-Line", "2023", "98765432109", "Lorena Sousa", 998877666));
@@ -67,8 +67,7 @@ s.addVeiculo(new Veiculo("OPQ-1234", "F-150", "2022", "34567890123", "Pedro Oliv
   }
 
   public void inserirVeiculo(String v){
-    // System.out.println("Inserindo veículo...");
-    // String comprimido = huffman.comprimir(v.toString());
+    
     s.addVeiculoComprimido(v);
   }
 
@@ -76,25 +75,20 @@ s.addVeiculo(new Veiculo("OPQ-1234", "F-150", "2022", "34567890123", "Pedro Oliv
     System.out.println("Excluindo Veículo...");
     s.removerVeiculo(k);
     
-    //System.out.println("VEICULO EXCLUIDO");
+    
   }
 
-  public void editarVeiculo(Integer k, String v){
+  public void editarVeiculo(String v){
     System.out.println("Editando Veículo...");
-    System.out.println(s.editar(k, v));
+    System.out.println(s.editar(v));
     System.out.println("VEICULO EDITADO");
     
   }
 
-  public void buscarVeiculo(Integer renavam){
+  public String buscarVeiculo(String renavam){
     System.out.println("Buscando Veículo...");
-    if(s.buscarVeiculo(renavam) == null){
-      System.out.println("Veículo não encontrado!");
-      
-    }else{
-      System.out.println(s.buscarVeiculo(renavam).valor.toString());
-
-    } 
+    
+    return s.buscarVeiculo(renavam);
   }
 
   public void listar(){

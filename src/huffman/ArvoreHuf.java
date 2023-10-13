@@ -14,14 +14,14 @@ public class ArvoreHuf {
   public No_Huf raiz;
   public String[] codes;
 
-  public void buildTree(int n, char[] charArray, int[] freqArray){
+  public void buildTree(int n, char[] caracteres, int[] freqArray){
     HeapMin heap = new HeapMin();
     No_Huf no;
 
     for(int i = 0; i<n; i++){
       no = new No_Huf();
 
-      no.caracter = charArray[i];
+      no.caracter = caracteres[i];
       no.freq = freqArray[i];
 
       no.esq = null;
@@ -49,7 +49,7 @@ public class ArvoreHuf {
     }
 
     codes = new String[128];
-    buildCodeArray(raiz, "");
+    construirArray(raiz, "");
 
   }
 
@@ -63,85 +63,88 @@ public class ArvoreHuf {
     imprimir(no.dir, s.concat("1"));
   }
 
-  public String comprimir(String input) {
-        char[] charArray = getCharacters(input);
-        Arrays.sort(charArray);
-        int[] charFrequencies = getFrequencies(input);
+  public String comprimir(String veiculo) {
+        char[] caracteres = getCharacters(veiculo);
 
-        buildTree(charArray.length, charArray, charFrequencies);
+        //ORDENAR O ARRAY
+        Arrays.sort(caracteres);
+        int[] frequencias = getFrequencia(veiculo);
 
-         // Um array para os caracteres ASCII
+        buildTree(caracteres.length, caracteres, frequencias);
 
-        buildCodeArray(raiz, "");
+         
 
-        String compressed = "";
-        for (int i = 0; i < input.length(); i++) {
-            char character = input.charAt(i);
-            compressed += codes[character];
+        construirArray(raiz, "");
+
+        String saida = "";
+        for (int i = 0; i < veiculo.length(); i++) {
+            char character = veiculo.charAt(i);
+            saida += codes[character];
         }
 
-        return compressed;
+        return saida;
     }
 
-    public String decompress(String compressed) {
-        String decompressed = "";
-        No_Huf current = raiz;
-        int currentIndex = 0;
+    public String descomprimir(String comprimido) {
+        String saida = "";
+        No_Huf atual = raiz;
+        int atualIndex = 0;
         
 
-        while (currentIndex < compressed.length()) {
-            char bit = compressed.charAt(currentIndex);
+        while (atualIndex < comprimido.length()) {
+            char bit = comprimido.charAt(atualIndex);
 
             if (bit == '0') {
-                current = current.esq;
-            } else if (bit == '1') {
-                current = current.dir;
+                atual = atual.esq;
+            }
+            else if (bit == '1') {
+                atual = atual.dir;
             }
             
 
-            if (current.esq == null && current.dir == null) {
-                decompressed += current.caracter;
-                current = raiz;
+            if (atual.esq == null && atual.dir == null) {
+                saida += atual.caracter;
+                atual = raiz;
             }
 
-            currentIndex++;
+            atualIndex++;
         }
 
-        return decompressed;
+        return saida;
     }
 
     
-    private void buildCodeArray(No_Huf node, String currentCode) {
-        if (node == null) {
+    private void construirArray(No_Huf no, String atualCode) {
+        if (no == null) {
             return;
         }
 
-        if (node.esq == null && node.dir == null) {
-            codes[node.caracter] = currentCode;
+        if (no.esq == null && no.dir == null) {
+            codes[no.caracter] = atualCode;
         }
 
-        buildCodeArray(node.esq, currentCode + "0");
-        buildCodeArray(node.dir, currentCode + "1");
+        construirArray(no.esq, atualCode + "0");
+        construirArray(no.dir, atualCode + "1");
     }
 
     // Calcular frequência
-    public int[] getFrequencies(String input){
-        int[] charFrequencies = new int[128]; 
+    public int[] getFrequencia(String veiculo){
+        int[] frequencias = new int[128]; 
 
-        for (int i = 0; i < input.length(); i++) {
-            char currentChar = input.charAt(i);
-            if (currentChar >= 0 && currentChar <= 127) {
-                if (Character.isLetterOrDigit(currentChar) || Character.isWhitespace(currentChar)) {
-                    charFrequencies[currentChar]++;
+        for (int i = 0; i < veiculo.length(); i++) {
+            char atualChar = veiculo.charAt(i);
+            if (atualChar >= 0 && atualChar <= 127) {
+                if (Character.isLetterOrDigit(atualChar) || Character.isWhitespace(atualChar)) {
+                    frequencias[atualChar]++;
                 }
-                else if(currentChar == '/' || currentChar == '.' || currentChar == '-' || currentChar == '@'){
-                    charFrequencies[currentChar]++;
+                else if(atualChar == '/' || atualChar == '.' || atualChar == '-' || atualChar == '@'){
+                    frequencias[atualChar]++;
                 }
             }
         }
 
         int coutZero = 0;
-        for (int value : charFrequencies) {
+        for (int value : frequencias) {
             if (value != 0) {
                 coutZero++;
             }
@@ -149,7 +152,7 @@ public class ArvoreHuf {
 
         int[] newArray = new int[coutZero];
         int index = 0;
-        for (int value : charFrequencies) {
+        for (int value : frequencias) {
             if (value != 0) {
                 newArray[index++] = value;
             }
@@ -158,21 +161,21 @@ public class ArvoreHuf {
     }
 
     // Separa Caracteres
-    public char[] getCharacters(String input){
-        boolean[] charExists = new boolean[128]; 
+    public char[] getCharacters(String veiculo){
+        StringBuilder charsUnicos = new StringBuilder();
+        boolean[] existentes = new boolean[128]; 
 
-        StringBuilder uniqueCharsBuilder = new StringBuilder();
 
-        for (int i = 0; i < input.length(); i++) {
-            char currentChar = input.charAt(i);
-            if (!charExists[currentChar]) {
-                charExists[currentChar] = true;
-                uniqueCharsBuilder.append(currentChar);
+        for (int i = 0; i < veiculo.length(); i++) {
+            char atualChar = veiculo.charAt(i);
+            if (!existentes[atualChar]) {
+                existentes[atualChar] = true;
+                charsUnicos.append(atualChar);
             }
         }
 
-        char[] uniqueChars = new char[uniqueCharsBuilder.length()];
-        uniqueCharsBuilder.getChars(0, uniqueCharsBuilder.length(), uniqueChars, 0);
+        char[] uniqueChars = new char[charsUnicos.length()];
+        charsUnicos.getChars(0, charsUnicos.length(), uniqueChars, 0);
 
         return uniqueChars;
     }

@@ -1,6 +1,5 @@
 package entity;
 
-import hash_encadeada.No_enc;
 import hash_encadeada.Tabela_encadeada;
 
 public class Servidor {
@@ -16,7 +15,7 @@ public class Servidor {
   public void addVeiculoComprimido(String v){
     
     System.out.println("String comprimida: " + v);
-    String descomp = Protocolo.huffman.decompress(v);
+    String descomp = Protocolo.huffman.descomprimir(v);
     System.out.println("String descomprimida: " + descomp);
 
 
@@ -39,14 +38,14 @@ public class Servidor {
     dadosT.remover(renavam);
   }
   
-  public String editar(Integer renavam, String v){
+  public String editar(String v){
 
     //DESCOMPRIMINDO
-    String descomp = Protocolo.huffman.decompress(v);
+    String descomp = Protocolo.huffman.descomprimir(v);
     String[] dadosEditado = descomp.split("/");
 
     Veiculo vEditado = new Veiculo(dadosEditado[0], dadosEditado[1], dadosEditado[2], dadosEditado[3], dadosEditado[4], Integer.parseInt(dadosEditado[5]));
-    dadosT.remover(renavam);
+    dadosT.remover(vEditado.renavam);
     dadosT.inserir(vEditado);
 
     return "Veiculo atualizado!";
@@ -59,7 +58,10 @@ public class Servidor {
     
   }
 
-  public No_enc buscarVeiculo(Integer renavam){
-    return dadosT.buscarMF(renavam);
+  public String buscarVeiculo(String renavam){
+    Integer kDescomp;
+     kDescomp = Integer.parseInt(Protocolo.huffman.descomprimir(renavam)) ;
+          
+    return Protocolo.huffman.comprimir(dadosT.buscarMF(kDescomp).valor.toString());
   }
 }

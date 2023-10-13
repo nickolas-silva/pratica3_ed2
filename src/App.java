@@ -100,7 +100,7 @@ public class App {
 
                     //Comprimindo veiculo editado
                     String compri = Protocolo.huffman.comprimir(veiculo_editar.toString());
-                    p.editarVeiculo(veiculo_editar.renavam, compri);
+                    p.editarVeiculo(compri);
                     break;
                 case 4:
                     System.out.println("Entre com o renavam do veículo: ");
@@ -110,8 +110,14 @@ public class App {
                 case 5:
                     System.out.println("Entre com o renavam do veículo: ");
                     Integer renavam_buscar = input.nextInt();
-                   
-                    p.buscarVeiculo(renavam_buscar);
+
+                    String kComprimida = Protocolo.huffman.comprimir(renavam_buscar.toString());
+
+                    //Veiculo vBuscado;
+                    String vbCompri;
+                    
+                    vbCompri = Protocolo.huffman.descomprimir(p.buscarVeiculo(kComprimida));
+                    System.out.println(vbCompri);
                     break;
 
                 case 6:
